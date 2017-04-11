@@ -30,14 +30,17 @@ public class Scr_GunControl : MonoBehaviour {
 	// Gun?
 	public GameObject vWeaponB; 		// Second Weapon
 	public bool vHasWepB; 				// Has The Weapon
+	public AudioSource vSoundA;
 
 	// Rocket?
 	public GameObject vWeaponC; 		// Third Weapon
 	public bool vHasWepC; 				// Has The Weapon
+	public AudioSource vSoundB;
 
 	// Grenades
 	public GameObject vWeaponD; 		// Grenade Weapon
 	public bool vHasWepD; 				// Has The Weapon
+	public AudioSource vSoundC;
 
 
 	// Use this for initialization
@@ -133,6 +136,7 @@ public class Scr_GunControl : MonoBehaviour {
 				}
 				vStatus = "Shoot";
 				vCoolDown = 1f;
+				vSoundA.Play ();
 			break;
 			case "Rocket":
 				int vCount = 20;

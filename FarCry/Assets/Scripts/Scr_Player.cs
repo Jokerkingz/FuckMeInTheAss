@@ -48,6 +48,9 @@ public class Scr_Player : MonoBehaviour {
 
 
 	public bool vIntro = true;
+	public bool vStart = false;
+
+	public AudioSource[] aSpeakAudios;
 	void Start()
 	{vActing = true;
 	}
@@ -62,7 +65,7 @@ public class Scr_Player : MonoBehaviour {
 		vTargetName =  ObjectInfront();
 		if (!vActing)
 			InputCheck ();
-		if (vIntro)
+		if (vIntro && !vStart)
 			vDirection = new Vector3(1f,0f,0f);
 		if (cCC.isGrounded) {
 			if (vYSpeed < -1f)
@@ -255,4 +258,9 @@ public class Scr_Player : MonoBehaviour {
 			transform.position = new Vector3 (0f, 0f, 0f);
 
 	}
+
+	public void Speak(int WhichSound){
+		aSpeakAudios [WhichSound].Play ();
+	}
+
 }
