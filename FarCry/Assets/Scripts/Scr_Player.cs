@@ -169,7 +169,7 @@ public class Scr_Player : MonoBehaviour {
 
 			cGC.ShootGun ();
 		}
-		if (Input.GetMouseButtonDown (1)) {
+		if (Input.GetMouseButtonDown (1) && 1==2) {
 			if (vMouseLock) {
 				Cursor.lockState = CursorLockMode.None;
 				vMouseLock = false;

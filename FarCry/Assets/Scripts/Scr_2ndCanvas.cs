@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scr_2ndCanvas : MonoBehaviour {
 	public GameObject vPlayer;
-	public bool vIsFade;
+	public int vIsFade;
 	public GameObject vBack;
 	public GameObject vFade;
 	public float vFadeAlpha;
@@ -20,7 +20,7 @@ public class Scr_2ndCanvas : MonoBehaviour {
 	public bool vDone;
 	// Use this for initialization
 	void Start () {
-		
+		vIsFade = 0;
 	}
 	
 	// Update is called once per frame
@@ -31,28 +31,41 @@ public class Scr_2ndCanvas : MonoBehaviour {
 			else{
 				if (Input.anyKey) {
 					vStartGame = true;
-					vIsFade = true;
+					vIsFade = 1;
 					vPlayer.GetComponent<Scr_Player>().Speak(0);
 					vStain.GetComponent<CanvasGroup> ().alpha = 1;
 				}
 			}
 		}
 		
-		if (vIsFade) {
+		if (vIsFade == 1) {
 			if (vFadeAlpha < 1f)
 				vFadeAlpha += 0.01f;
 			else {
 				if (!vDone) {
 					vTitle.GetComponent<CanvasGroup> ().alpha = 0f;
 					vStain.GetComponent<CanvasGroup> ().alpha = 0f;
-					vPlayer.GetComponent<Scr_Player>().Speak(1);
+					vPlayer.GetComponent<Scr_Player> ().Speak (1);
 					vFadeAlpha = 1f;
+					DestroyObject (vMessage);
 					DestroyObject (vBack);
-					Invoke ("StartGame", 3f);
+					Invoke ("StartGame", 20f);
 					vDone = true;
+					vIsFade = 0;
 				} 
 			}
 
+		} else if (vIsFade == 2) {
+			if (vFadeAlpha > 0f)
+				vFadeAlpha -= 0.01f;
+			else {
+
+
+				vPlayer.GetComponent<Scr_Player> ().vIntro = true;
+				vPlayer.GetComponent<Scr_Player> ().vStart = false;
+				DestroyObject (this.gameObject);
+
+			}
 		}
 
 		vMessage.GetComponent<CanvasGroup> ().alpha = vMessageAlpha;
@@ -60,7 +73,9 @@ public class Scr_2ndCanvas : MonoBehaviour {
 
 	}
 	void StartGame(){
-		vPlayer.GetComponent<Scr_Player> ().vIntro = true;
-		vPlayer.GetComponent<Scr_Player> ().vStart = true;
+		vIsFade = 2;
+		vFadeAlpha = 1f;
+		Cursor.lockState = CursorLockMode.Locked;
+
 	}
 }
