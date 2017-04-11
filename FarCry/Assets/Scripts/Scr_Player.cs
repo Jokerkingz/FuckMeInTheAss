@@ -26,6 +26,9 @@ public class Scr_Player : MonoBehaviour {
 	public AnimationCurve vBounce;
 	public float vBounceFrame;
 
+	public bool vShotGun;
+	public bool vCannonGun;
+
 	// Camera // Camera // Camera // Camera // Camera // Camera // Camera // Camera // Camera // Camera // Camera // Camera // Camera // Camera 
 	[Header("Camera")]
 	public GameObject ViewBase;
@@ -43,8 +46,10 @@ public class Scr_Player : MonoBehaviour {
 	public bool v1stClear;
 	public bool v2ndClear;
 
+
+	public bool vIntro = true;
 	void Start()
-	{
+	{vActing = true;
 	}
 
 	void Awake ()
@@ -57,6 +62,8 @@ public class Scr_Player : MonoBehaviour {
 		vTargetName =  ObjectInfront();
 		if (!vActing)
 			InputCheck ();
+		if (vIntro)
+			vDirection = new Vector3(1f,0f,0f);
 		if (cCC.isGrounded) {
 			if (vYSpeed < -1f)
 				vYSpeed = -1f;
@@ -149,12 +156,10 @@ public class Scr_Player : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Q))
 			vCanvas.SendMessage("GetHit",.4f);
 		if (Input.GetKeyDown(KeyCode.Alpha1))
-			cGC.SwitchGun("Shocker");
-		if (Input.GetKeyDown(KeyCode.Alpha2))
 			cGC.SwitchGun("Gun");
-		if (Input.GetKeyDown(KeyCode.Alpha3))
+		if (Input.GetKeyDown(KeyCode.Alpha2) && vShotGun)
 			cGC.SwitchGun("Rocket");
-		if (Input.GetKeyDown(KeyCode.Alpha4))
+		if (Input.GetKeyDown(KeyCode.Alpha3) && vCannonGun)
 			cGC.SwitchGun("Grenade");
 
 		if (Input.GetMouseButton (0)) {
