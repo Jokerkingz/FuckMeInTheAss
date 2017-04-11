@@ -157,7 +157,7 @@ public class Scr_GunControl : MonoBehaviour {
 				Renderer rend = tGO.GetComponentInChildren<Renderer>();
 				rend.material.SetColor("_SpecColor",vColors[Random.Range(0,8)]);
 			vStatus = "Shoot";
-			vCoolDown = 0f;
+			vCoolDown = 3f;
 			break;
 
 		}
